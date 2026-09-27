@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-        seedColor: const Color.fromARGB(255, 204, 199, 214),
+          seedColor: const Color.fromARGB(255, 204, 199, 214),
         ),
       ),
       home: const MyHomePage(title: 'Flutter Demo'),
@@ -32,28 +32,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
- 
-
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
 
         title: Text(widget.title),
       ),
-      body:Center(
-        child:Container(
-         width: 200,
-         height: 100,
-        
-         color: Color.fromARGB(98, 44, 46, 43),
-         child: Center(
-         child: Text("hello nikhil",style:TextStyle(color: Colors.white, fontSize: 25),)
-        ),
+      body:Container(
+        height: 400,
+        color: Colors.black,
+        child:Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text("this is a iron man image",style: TextStyle(color: Colors.white,fontSize: 20),),
+          Image.asset("assets/images/Stark.jpg"),
+          // Text("this is Inersteller image"),
+          // Image.asset("assets/images/intersteller.jpg")
+    
+        ],
       )
       )
     );
