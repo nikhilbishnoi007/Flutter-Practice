@@ -43,15 +43,18 @@ class _MyHomePageState extends State<MyHomePage> {
       body:Container(
         height: 400,
         color: Colors.black,
-        child:Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child:SingleChildScrollView(
+          child: Column(
+         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text("this is a iron man image",style: TextStyle(color: Colors.white,fontSize: 20),),
           Image.asset("assets/images/Stark.jpg"),
-          // Text("this is Inersteller image"),
-          // Image.asset("assets/images/intersteller.jpg")
+          Text("this is Inersteller image",style: TextStyle(color: Colors.white,fontSize: 20)),
+          Image.asset("assets/images/intersteller.jpg"),
+          Image.asset("assets/images/intersteller.jpg")
     
         ],
+      )
       )
       )
     );
