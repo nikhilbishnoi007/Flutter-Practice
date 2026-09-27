@@ -40,22 +40,44 @@ class _HomeScreen extends State<HomeScreen> {
 
         title: Text(widget.title),
       ),
-      body:Container(
-        height: 400,
-        color: Colors.black,
-        child:SingleChildScrollView(
-          child: Column(
-         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("this is a iron man image",style: TextStyle(color: Colors.white,fontSize: 20),),
-          Image.asset("assets/images/Stark.jpg"),
-          Text("this is Inersteller image",style: TextStyle(color: Colors.white,fontSize: 20)),
-          Image.asset("assets/images/intersteller.jpg"),
-          Image.asset("assets/images/intersteller.jpg")
-    
+      body:ListView(
+          children: [
+         Container(
+          width: 400,
+          height: 200,
+          color: Colors.red,
+         ),
+         Container(
+          width: 400,
+          height: 200,
+          color: Colors.grey,
+         ),
+         Container(
+          width: 400,
+          height: 200,
+          color: Colors.amber,
+         ),
+         Container(
+          width: 400,
+          height: 200,
+          color: Colors.yellow,
+         ),
+         Container(
+          width: 400,
+          height: 200,
+          color: Colors.blue,
+         ),
+         Container(
+          width: 400,
+          height: 200,
+          color: Colors.black,
+         ),
+         Container(
+          width: 400,
+          height: 200,
+          color: Colors.green,
+         ),
         ],
-      )
-      )
       )
     );
   }
