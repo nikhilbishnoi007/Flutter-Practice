@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
       title: 'Student Managment',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
+        // scaffoldBackgroundColor: const Color(0xFF0D0D0D),
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF1F0D42),
-  
+          // brightness: Brightness.dark,
         ),
         useMaterial3: true,
       ),
@@ -38,14 +38,16 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var names = [
-      {"name": "nikhil", "class": "BCA", "RollNo": 1001, "Role": "Monitor","avatar":"assets/images/boyavatar.jpg"},
+      {"name": "nikhil", "class": "BCA", "RollNo": 1001, "Role": "Monitor","avatar":"assets/images/boy5avatar.jpg"},
       {"name": "priyanka", "class": "BCA", "RollNo": 1002, "Role": "HeadGirl","avatar":"assets/images/girlavatar.jpg"},
-      {"name": "dilshan", "class": "BCA", "RollNo": 1003, "Role": "HeadBoy","avatar":"assets/images/boyavatar.jpg"},
-      {"name": "khushi", "class": "BCA", "RollNo": 1004, "Role": "Student","avatar":"assets/images/girlavatar.jpg"},
-      {"name": "vikash", "class": "BCA", "RollNo": 1005, "Role": "Student","avatar":"assets/images/boyavatar.jpg"},
-      {"name": "hacker", "class": "BCA", "RollNo": 1006, "Role": "Student","avatar":"assets/images/boyavatar.jpg"},
-      {"name": "kaif", "class": "BCA", "RollNo": 1008, "Role": "Student","avatar":"assets/images/boyavatar.jpg"},
+      {"name": "dilshan", "class": "BCA", "RollNo": 1003, "Role": "HeadBoy","avatar":"assets/images/boy1avatar.jpg"},
+      {"name": "khushi", "class": "BCA", "RollNo": 1004, "Role": "Student","avatar":"assets/images/girl1avatar.jpg"},
+      {"name": "vikash", "class": "BCA", "RollNo": 1005, "Role": "Student","avatar":"assets/images/boy2avatar.jpg"},
+      {"name": "hacker", "class": "BCA", "RollNo": 1006, "Role": "Student","avatar":"assets/images/boy3avatar.jpg"},
+      {"name": "kaif", "class": "BCA", "RollNo": 1007, "Role": "Student","avatar":"assets/images/boy4avatar.jpg"},
+      {"name": "neha", "class": "BCA", "RollNo": 1008, "Role": "Student","avatar":"assets/images/girl2avatar.jpg"},
       {"name": "ankit", "class": "BCA", "RollNo": 1009, "Role": "Student","avatar":"assets/images/boyavatar.jpg"},
+      {"name": "zaheer", "class": "BCA", "RollNo": 1010, "Role": "Student","avatar":"assets/images/boy6avatar.jpg"},
     ];
     String capitalize(String text) {
       if (text.isEmpty) return text;
