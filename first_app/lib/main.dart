@@ -13,7 +13,12 @@ class MyApp extends StatelessWidget {
       title: 'Student Managment',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1F0D42)),
+        // scaffoldBackgroundColor: const Color(0xFF0D0D0D),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF1F0D42),
+          // brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
       ),
       home: const HomeScreen(title: 'Student Details'),
     );
@@ -33,14 +38,14 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var names = [
-      {"name": "nikhil", "class": "BCA", "RollNo": 1001},
-      {"name": "priyanka", "class": "BCA", "RollNo": 1002},
-      {"name": "dilshan", "class": "BCA", "RollNo": 1003},
-      {"name": "khushi", "class": "BCA", "RollNo": 1004},
-      {"name": "vikash", "class": "BCA", "RollNo": 1005},
-      {"name": "hacker", "class": "BCA", "RollNo": 1006},
-      {"name": "kaif", "class": "BCA", "RollNo": 1008},
-      {"name": "ankit", "class": "BCA", "RollNo": 1009},
+      {"name": "nikhil", "class": "BCA", "RollNo": 1001, "Role": "Monitor","avatar":"assets/images/boyavatar.jpg"},
+      {"name": "priyanka", "class": "BCA", "RollNo": 1002, "Role": "HeadGirl","avatar":"assets/images/girlavatar.jpg"},
+      {"name": "dilshan", "class": "BCA", "RollNo": 1003, "Role": "HeadBoy","avatar":"assets/images/boyavatar.jpg"},
+      {"name": "khushi", "class": "BCA", "RollNo": 1004, "Role": "Student","avatar":"assets/images/girlavatar.jpg"},
+      {"name": "vikash", "class": "BCA", "RollNo": 1005, "Role": "Student","avatar":"assets/images/boyavatar.jpg"},
+      {"name": "hacker", "class": "BCA", "RollNo": 1006, "Role": "Student","avatar":"assets/images/boyavatar.jpg"},
+      {"name": "kaif", "class": "BCA", "RollNo": 1008, "Role": "Student","avatar":"assets/images/boyavatar.jpg"},
+      {"name": "ankit", "class": "BCA", "RollNo": 1009, "Role": "Student","avatar":"assets/images/boyavatar.jpg"},
     ];
     String capitalize(String text) {
       if (text.isEmpty) return text;
@@ -49,9 +54,11 @@ class _HomeScreen extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFFDBEAFE),
+        backgroundColor: const Color.fromARGB(255, 237, 238, 240),
 
-        title: Text(widget.title),
+        title: Center(
+          child: Text(widget.title, style: TextStyle(color: Colors.blueGrey)),
+        ),
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
@@ -61,21 +68,26 @@ class _HomeScreen extends State<HomeScreen> {
             width: 100,
             height: 200,
             decoration: BoxDecoration(
-              color: const Color(0xFF1E293B),
+              color: const Color(0xFF1A1A1A),
               borderRadius: BorderRadius.circular(25),
+              boxShadow: [BoxShadow(blurRadius: 10)],
             ),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Name: ${capitalize(names[index]["name"] as String)}",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
+                  ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage(names[index]["avatar"] as String),
+                    ),
+                    title: Text(
+                      capitalize(names[index]["name"] as String),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    trailing: Text(
+                      capitalize(names[index]["Role"] as String),
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 20),
