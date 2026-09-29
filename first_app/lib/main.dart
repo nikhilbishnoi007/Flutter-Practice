@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Student Managment',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // scaffoldBackgroundColor: const Color(0xFF0D0D0D),
+        fontFamily: "MainFont",
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF1F0D42),
           // brightness: Brightness.dark,
