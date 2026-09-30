@@ -38,16 +38,16 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var names = [
-      {"name": "nikhil", "class": "BCA", "RollNo": 1001, "Role": "Monitor","avatar":"assets/images/boy5avatar.jpg"},
-      {"name": "priyanka", "class": "BCA", "RollNo": 1002, "Role": "HeadGirl","avatar":"assets/images/girlavatar.jpg"},
-      {"name": "dilshan", "class": "BCA", "RollNo": 1003, "Role": "HeadBoy","avatar":"assets/images/boy1avatar.jpg"},
-      {"name": "khushi", "class": "BCA", "RollNo": 1004, "Role": "Student","avatar":"assets/images/girl1avatar.jpg"},
-      {"name": "vikash", "class": "BCA", "RollNo": 1005, "Role": "Student","avatar":"assets/images/boy2avatar.jpg"},
-      {"name": "hacker", "class": "BCA", "RollNo": 1006, "Role": "Student","avatar":"assets/images/boy3avatar.jpg"},
-      {"name": "kaif", "class": "BCA", "RollNo": 1007, "Role": "Student","avatar":"assets/images/boy4avatar.jpg"},
-      {"name": "neha", "class": "BCA", "RollNo": 1008, "Role": "Student","avatar":"assets/images/girl2avatar.jpg"},
-      {"name": "ankit", "class": "BCA", "RollNo": 1009, "Role": "Student","avatar":"assets/images/boyavatar.jpg"},
-      {"name": "zaheer", "class": "BCA", "RollNo": 1010, "Role": "Student","avatar":"assets/images/boy6avatar.jpg"},
+      {"name": "nikhil", "course": "MCA", "RollNo": 1001, "Role": "Monitor","avatar":"assets/images/boy5avatar.jpg"},
+      {"name": "priyanka", "course": "BCA", "RollNo": 1002, "Role": "HeadGirl","avatar":"assets/images/girlavatar.jpg"},
+      {"name": "dilshan", "course": "BCA", "RollNo": 1003, "Role": "HeadBoy","avatar":"assets/images/boy1avatar.jpg"},
+      {"name": "khushi", "course": "BCA", "RollNo": 1004, "Role": "Student","avatar":"assets/images/girl1avatar.jpg"},
+      {"name": "vikash", "course": "MCA", "RollNo": 1005, "Role": "Student","avatar":"assets/images/boy2avatar.jpg"},
+      {"name": "hacker", "course": "BCA", "RollNo": 1006, "Role": "Student","avatar":"assets/images/boy3avatar.jpg"},
+      {"name": "manish", "course": "MCA", "RollNo": 1007, "Role": "Student","avatar":"assets/images/boy4avatar.jpg"},
+      {"name": "neha", "course": "BCA", "RollNo": 1008, "Role": "Student","avatar":"assets/images/girl2avatar.jpg"},
+      {"name": "ankit", "course": "BCA", "RollNo": 1009, "Role": "Student","avatar":"assets/images/boyavatar.jpg"},
+      {"name": "zaheer", "course": "BCA", "RollNo": 1010, "Role": "Student","avatar":"assets/images/boy6avatar.jpg"},
     ];
     String capitalize(String text) {
       if (text.isEmpty) return text;
@@ -97,7 +97,7 @@ class _HomeScreen extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Class: ${names[index]["class"]}",
+                          "Course: ${names[index]["course"]}",
                           style: TextStyle(color: Colors.white),
                         ),
                         Text(
@@ -107,9 +107,21 @@ class _HomeScreen extends State<HomeScreen> {
                       ],
                     ),
                   ),
+                  TextField(
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton( onPressed:(){
+
+                      },
+                      icon:Icon(Icons.remove_red_eye)),                      
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(21)
+                      )
+                    ),
+                  )
                 ],
               ),
             ),
+            
           );
         },
         itemCount: names.length,
