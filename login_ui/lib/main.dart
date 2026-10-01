@@ -17,21 +17,21 @@ class MyApp extends StatelessWidget {
         fontFamily: "MainFont",
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1F0D42)),
       ),
-      home: const MyHomePage(title: 'Welcome! Login to Conitnue'),
+      home: const LoginScreen(title: 'Welcome! Login to Conitnue'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _LoginScreenState extends State<LoginScreen> {
   bool isPassword = true;
   var email = TextEditingController();
   var password = TextEditingController();
@@ -52,10 +52,20 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // extendBodyBehindAppBar: true,
       // appBar: AppBar(
-
       //   backgroundColor: const Color.fromARGB(255, 237, 238, 240),
-      //   title:Center(child:Text(widget.title,style: TextStyle(color: Colors.blueGrey))),
+        
+      //   elevation: 0,
+      //   leading: IconButton(
+      //     icon: const Icon(Icons.arrow_back, color: Colors.black),
+      //     onPressed: () {
+      //       // Navigator.pop(context); 
+      //     },
+      //   ),
+      //   title: Center(
+      //     child: Text("Login Screen", style: TextStyle(color: Colors.blueGrey)),
+      //   ),
       // ),
       body: Center(
         child: Container(
@@ -67,7 +77,11 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Padding(
                 padding: EdgeInsets.only(bottom: 16),
-                child: Text("Welcome Back!", style: TextStyle(fontSize: 20),textAlign:TextAlign.center),
+                child: Text(
+                  "Welcome Back!",
+                  style: TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
               ),
               Row(
                 mainAxisAlignment: .center,
