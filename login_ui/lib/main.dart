@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Student Management',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: "MainFont",
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1F0D42)),
       ),
       home: const MyHomePage(title: 'Welcome! Login to Conitnue'),
@@ -62,11 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 600,
           margin: EdgeInsets.only(left: 25, right: 25),
           padding: EdgeInsets.only(top: 25),
-          child: Column(
+          child: ListView(
             children: [
               Padding(
                 padding: EdgeInsets.only(bottom: 16),
-                child: Text("Welcome Back!", style: TextStyle(fontSize: 20)),
+                child: Text("Welcome Back!", style: TextStyle(fontSize: 20),textAlign:TextAlign.center),
               ),
               Row(
                 mainAxisAlignment: .center,
