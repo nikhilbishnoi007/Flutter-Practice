@@ -34,7 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
     var email = TextEditingController();
     var password = TextEditingController();
   @override
+
   Widget build(BuildContext context) {
+  
     return Scaffold(
       // appBar: AppBar(
 
@@ -143,6 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   const Expanded(
                     child: Divider(color: Colors.grey, thickness: 1),
                   ),
+
                 ],
               ),
                Container(
