@@ -30,10 +30,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
+    bool isPassword=true;
     var email = TextEditingController();
     var password = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(
 
@@ -84,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   SizedBox(height: 10),
                   TextField(
-                    obscureText: true,
+                    obscureText: isPassword,
                     controller: password,
                     decoration: InputDecoration(
                       hint: Text(
@@ -95,7 +96,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       prefixIcon: Icon(Icons.key),
-                      suffixIcon: Icon(Icons.remove_red_eye),
+                      suffixIcon: IconButton(
+                      onPressed: (){
+                        setState(() {
+                          isPassword= !isPassword;
+                        });
+                      }, 
+                      icon: Icon(isPassword? Icons.visibility_off:Icons.remove_red_eye)
+                      )
+                      
                     ),
                   ),
                   Text(
