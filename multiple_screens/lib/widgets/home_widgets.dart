@@ -1,78 +1,23 @@
 import 'package:flutter/material.dart';
 
 var userdetail = [
-  {
-    "name": "nikhil",
-    "course": "MCA",
-    "RollNo": 1001,
-    "Role": "Monitor",
-    "avatar": "assets/images/boy5avatar.jpg",
-  },
+  {"name": "nikhil", "RollNo": 1001, "avatar": "assets/images/boy5avatar.jpg"},
   {
     "name": "priyanka",
-    "course": "BCA",
+
     "RollNo": 1002,
-    "Role": "HeadGirl",
+
     "avatar": "assets/images/girlavatar.jpg",
   },
-  {
-    "name": "dilshan",
-    "course": "BCA",
-    "RollNo": 1003,
-    "Role": "HeadBoy",
-    "avatar": "assets/images/boy1avatar.jpg",
-  },
-  {
-    "name": "khushi",
-    "course": "BCA",
-    "RollNo": 1004,
-    "Role": "Student",
-    "avatar": "assets/images/girl1avatar.jpg",
-  },
-  {
-    "name": "vikash",
-    "course": "MCA",
-    "RollNo": 1005,
-    "Role": "Student",
-    "avatar": "assets/images/boy2avatar.jpg",
-  },
-  {
-    "name": "hacker",
-    "course": "BCA",
-    "RollNo": 1006,
-    "Role": "Student",
-    "avatar": "assets/images/boy3avatar.jpg",
-  },
-  {
-    "name": "manish",
-    "course": "MCA",
-    "RollNo": 1007,
-    "Role": "Student",
-    "avatar": "assets/images/boy4avatar.jpg",
-  },
-  {
-    "name": "neha",
-    "course": "BCA",
-    "RollNo": 1008,
-    "Role": "Student",
-    "avatar": "assets/images/girl2avatar.jpg",
-  },
-  {
-    "name": "ankit",
-    "course": "BCA",
-    "RollNo": 1009,
-    "Role": "Student",
-    "avatar": "assets/images/boyavatar.jpg",
-  },
-  {
-    "name": "zaheer",
-    "course": "BCA",
-    "RollNo": 1010,
-    "Role": "Student",
-    "avatar": "assets/images/boy6avatar.jpg",
-  },
+  {"name": "dilshan", "RollNo": 1003, "avatar": "assets/images/boy1avatar.jpg"},
+  {"name": "khushi", "RollNo": 1004, "avatar": "assets/images/girl1avatar.jpg"},
+  {"name": "vikash", "RollNo": 1005, "avatar": "assets/images/boy2avatar.jpg"},
+  {"name": "hacker", "RollNo": 1006, "avatar": "assets/images/boy3avatar.jpg"},
+  {"name": "manish", "RollNo": 1007, "avatar": "assets/images/boy4avatar.jpg"},
+  {"name": "neha", "RollNo": 1008, "avatar": "assets/images/girl2avatar.jpg"},
+  {"name": "ankit", "RollNo": 1009, "avatar": "assets/images/boyavatar.jpg"},
+  {"name": "zaheer", "RollNo": 1010, "avatar": "assets/images/boy6avatar.jpg"},
 ];
-
 
 class One extends StatelessWidget {
   const One({super.key});
@@ -89,8 +34,9 @@ class One extends StatelessWidget {
               height: 100,
 
               child: CircleAvatar(
-                backgroundColor: Colors.black,
-                child: Text("helo", style: TextStyle(color: Colors.white)),
+                backgroundImage: AssetImage(
+                  userdetail[index]["avatar"] as String,
+                ),
               ),
             ),
           );
@@ -105,9 +51,10 @@ class One extends StatelessWidget {
 class Two extends StatelessWidget {
   const Two({super.key});
   String capatalize(String text) {
-  if (text.isEmpty) return text;
-  return text[0].toUpperCase() + text.substring(1);
-}
+    if (text.isEmpty) return text;
+    return text[0].toUpperCase() + text.substring(1);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -117,12 +64,19 @@ class Two extends StatelessWidget {
         itemBuilder: ((context, index) => Padding(
           padding: EdgeInsetsGeometry.all(10),
           child: ListTile(
-            leading: CircleAvatar( backgroundImage: AssetImage(userdetail[index]["avatar"] as String),),
+            leading: CircleAvatar(
+              backgroundImage: AssetImage(
+                userdetail[index]["avatar"] as String,
+              ),
+            ),
             title: Text(
-              capatalize( userdetail[index]["name"]as String),
+              capatalize(userdetail[index]["name"] as String),
               style: TextStyle(color: Colors.black),
             ),
-            subtitle: Text("${userdetail[index]["RollNo"]}", style: TextStyle(color: Colors.blueGrey)),
+            subtitle: Text(
+              "${userdetail[index]["RollNo"]}",
+              style: TextStyle(color: Colors.blueGrey),
+            ),
             trailing: Icon(Icons.delete),
           ),
         )),
