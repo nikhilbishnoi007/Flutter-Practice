@@ -1,17 +1,79 @@
 import 'package:flutter/material.dart';
 
-var userdeatil = [
-  {"name": "user1"},
-  {"name": "user2"},
-  {"name": "user3"},
-  {"name": "user4"},
-  {"name": "user5"},
-  {"name": "user6"},
-  {"name": "user7"},
-  {"name": "user8"},
-  {"name": "user9"},
-  {"name": "user10"},
+var userdetail = [
+  {
+    "name": "nikhil",
+    "course": "MCA",
+    "RollNo": 1001,
+    "Role": "Monitor",
+    "avatar": "assets/images/boy5avatar.jpg",
+  },
+  {
+    "name": "priyanka",
+    "course": "BCA",
+    "RollNo": 1002,
+    "Role": "HeadGirl",
+    "avatar": "assets/images/girlavatar.jpg",
+  },
+  {
+    "name": "dilshan",
+    "course": "BCA",
+    "RollNo": 1003,
+    "Role": "HeadBoy",
+    "avatar": "assets/images/boy1avatar.jpg",
+  },
+  {
+    "name": "khushi",
+    "course": "BCA",
+    "RollNo": 1004,
+    "Role": "Student",
+    "avatar": "assets/images/girl1avatar.jpg",
+  },
+  {
+    "name": "vikash",
+    "course": "MCA",
+    "RollNo": 1005,
+    "Role": "Student",
+    "avatar": "assets/images/boy2avatar.jpg",
+  },
+  {
+    "name": "hacker",
+    "course": "BCA",
+    "RollNo": 1006,
+    "Role": "Student",
+    "avatar": "assets/images/boy3avatar.jpg",
+  },
+  {
+    "name": "manish",
+    "course": "MCA",
+    "RollNo": 1007,
+    "Role": "Student",
+    "avatar": "assets/images/boy4avatar.jpg",
+  },
+  {
+    "name": "neha",
+    "course": "BCA",
+    "RollNo": 1008,
+    "Role": "Student",
+    "avatar": "assets/images/girl2avatar.jpg",
+  },
+  {
+    "name": "ankit",
+    "course": "BCA",
+    "RollNo": 1009,
+    "Role": "Student",
+    "avatar": "assets/images/boyavatar.jpg",
+  },
+  {
+    "name": "zaheer",
+    "course": "BCA",
+    "RollNo": 1010,
+    "Role": "Student",
+    "avatar": "assets/images/boy6avatar.jpg",
+  },
 ];
+
+
 class One extends StatelessWidget {
   const One({super.key});
   @override
@@ -19,49 +81,52 @@ class One extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: ListView.builder(
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsetsGeometry.all(5),
-              child: SizedBox(
-                width: 100,
-                height: 100,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsetsGeometry.all(5),
+            child: SizedBox(
+              width: 100,
+              height: 100,
 
-                child: CircleAvatar(
-                  backgroundColor: Colors.black,
-                  child: Text("helo",style: TextStyle(color: Colors.white),),
-                ),
+              child: CircleAvatar(
+                backgroundColor: Colors.black,
+                child: Text("helo", style: TextStyle(color: Colors.white)),
               ),
-            );
-          },
-          itemCount: userdeatil.length,
-          scrollDirection: Axis.horizontal,
-        ),
-     
+            ),
+          );
+        },
+        itemCount: userdetail.length,
+        scrollDirection: Axis.horizontal,
+      ),
     );
   }
 }
+
 class Two extends StatelessWidget {
   const Two({super.key});
+  String capatalize(String text) {
+  if (text.isEmpty) return text;
+  return text[0].toUpperCase() + text.substring(1);
+}
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 5,
-      child:ListView.builder(
-          itemCount: userdeatil.length,
-          itemBuilder: ((context, index) => Padding(
-            padding: EdgeInsetsGeometry.all(10),
-            child: ListTile(
-              leading: CircleAvatar(backgroundColor: Colors.black),
-              title: Text(
-                "${userdeatil[index]["name"]}",
-                style: TextStyle(color: Colors.black),
-              ),
-              subtitle: Text("mob no.",style:TextStyle(color:Colors.blueGrey)),
-              trailing: Icon(Icons.delete),
+      child: ListView.builder(
+        itemCount: userdetail.length,
+        itemBuilder: ((context, index) => Padding(
+          padding: EdgeInsetsGeometry.all(10),
+          child: ListTile(
+            leading: CircleAvatar( backgroundImage: AssetImage(userdetail[index]["avatar"] as String),),
+            title: Text(
+              capatalize( userdetail[index]["name"]as String),
+              style: TextStyle(color: Colors.black),
             ),
-          )),
-        ),
-      
+            subtitle: Text("${userdetail[index]["RollNo"]}", style: TextStyle(color: Colors.blueGrey)),
+            trailing: Icon(Icons.delete),
+          ),
+        )),
+      ),
     );
   }
 }
@@ -72,24 +137,23 @@ class Three extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 2,
-      child:ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsetsGeometry.all(10),
-              child: Container(
-                width: 200,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(20),
-                ),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsetsGeometry.all(10),
+            child: Container(
+              width: 200,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(20),
               ),
-            );
-          },
-        ),
-      
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -101,27 +165,26 @@ class Four extends StatelessWidget {
     return Expanded(
       flex: 2,
       child: GridView.builder(
-          itemCount: 10,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsetsGeometry.all(10),
-              child: Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-            );
-          },
+        itemCount: 10,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
         ),
-    
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsetsGeometry.all(10),
+            child: Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -39,7 +39,7 @@ class _HomeScreen extends State<HomeScreen> {
         backgroundColor: const Color.fromARGB(255, 237, 238, 240),
         title: Text(widget.title),
       ),
-      body: Column(children: [One(),Two(),Three(),Four()]),
+      body: Column(children: [One(),Two(),Three()]),
     
     );
   }
