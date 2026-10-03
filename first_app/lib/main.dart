@@ -107,17 +107,7 @@ class _HomeScreen extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  TextField(
-                    decoration: InputDecoration(
-                      suffixIcon: IconButton( onPressed:(){
-
-                      },
-                      icon:Icon(Icons.remove_red_eye)),                      
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(21)
-                      )
-                    ),
-                  )
+             
                 ],
               ),
             ),
