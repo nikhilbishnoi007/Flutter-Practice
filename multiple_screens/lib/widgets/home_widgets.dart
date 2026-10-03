@@ -18,9 +18,7 @@ class One extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
-      child: Container(
-        color: Colors.blue,
-        child: ListView.builder(
+      child: ListView.builder(
           itemBuilder: (context, index) {
             return Padding(
               padding: EdgeInsetsGeometry.all(5),
@@ -29,8 +27,8 @@ class One extends StatelessWidget {
                 height: 100,
 
                 child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Text("helo"),
+                  backgroundColor: Colors.black,
+                  child: Text("helo",style: TextStyle(color: Colors.white),),
                 ),
               ),
             );
@@ -38,7 +36,7 @@ class One extends StatelessWidget {
           itemCount: userdeatil.length,
           scrollDirection: Axis.horizontal,
         ),
-      ),
+     
     );
   }
 }
@@ -47,25 +45,23 @@ class Two extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 4,
-      child: Container(
-        color: Colors.green,
-        child: ListView.builder(
+      flex: 5,
+      child:ListView.builder(
           itemCount: userdeatil.length,
           itemBuilder: ((context, index) => Padding(
             padding: EdgeInsetsGeometry.all(10),
             child: ListTile(
-              leading: CircleAvatar(backgroundColor: Colors.white),
+              leading: CircleAvatar(backgroundColor: Colors.black),
               title: Text(
                 "${userdeatil[index]["name"]}",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.black),
               ),
-              subtitle: Text("mob no."),
+              subtitle: Text("mob no.",style:TextStyle(color:Colors.blueGrey)),
               trailing: Icon(Icons.delete),
             ),
           )),
         ),
-      ),
+      
     );
   }
 }
@@ -76,9 +72,7 @@ class Three extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 2,
-      child: Container(
-        color: Colors.grey,
-        child: ListView.builder(
+      child:ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: 10,
           itemBuilder: (context, index) {
@@ -95,7 +89,7 @@ class Three extends StatelessWidget {
             );
           },
         ),
-      ),
+      
     );
   }
 }
@@ -106,9 +100,7 @@ class Four extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 2,
-      child: Container(
-        color: Colors.blue,
-        child: GridView.builder(
+      child: GridView.builder(
           itemCount: 10,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -129,7 +121,7 @@ class Four extends StatelessWidget {
             );
           },
         ),
-      ),
+    
     );
   }
 }

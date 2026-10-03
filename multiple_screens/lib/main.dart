@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Student Management',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFF121212),
+        scaffoldBackgroundColor:  Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       home: const HomeScreen(title: 'Home Screen'),
