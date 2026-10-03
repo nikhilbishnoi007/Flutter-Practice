@@ -65,6 +65,8 @@ class _HomeScreen extends State<HomeScreen> {
       body: ListView.builder(
         itemBuilder: (context, index) {
           return Container(
+            // elevation: 12,
+            // color: const Color(0xFF1A1A1A),
             margin: EdgeInsets.all(20),
             padding: EdgeInsets.all(16),
             width: 100,
@@ -107,7 +109,6 @@ class _HomeScreen extends State<HomeScreen> {
                       ],
                     ),
                   ),
-             
                 ],
               ),
             ),
