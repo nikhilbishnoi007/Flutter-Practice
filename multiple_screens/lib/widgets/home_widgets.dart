@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 var userdetail = [
   {"name": "nikhil", "RollNo": 1001, "avatar": "assets/images/boy5avatar.jpg"},
@@ -28,7 +29,7 @@ class One extends StatelessWidget {
       child: ListView.builder(
         itemBuilder: (context, index) {
           return Padding(
-            padding: EdgeInsetsGeometry.all(5),
+            padding: EdgeInsetsGeometry.all(3),
             child: SizedBox(
               width: 100,
               height: 100,
@@ -77,7 +78,10 @@ class Two extends StatelessWidget {
               "${userdetail[index]["RollNo"]}",
               style: TextStyle(color: Colors.blueGrey),
             ),
-            trailing: Icon(Icons.delete),
+            trailing: FaIcon(
+              FontAwesomeIcons.instagram,
+               color: Colors.red,
+              ),
           ),
         )),
       ),
@@ -103,6 +107,15 @@ class Three extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(20),
+              ),
+              child: Center(child: RichText(
+                text: TextSpan(
+                children:<TextSpan>[
+                  TextSpan(text: "hello"),
+                  TextSpan(text: " ${userdetail[index]["name"]}",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w500,fontSize: 20))
+                ]
+              )
+              )
               ),
             ),
           );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multiple_screens/widgets/home_widgets.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Student Management',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor:  Colors.white,
+        scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       home: const HomeScreen(title: 'Home Screen'),
@@ -39,11 +38,8 @@ class _HomeScreen extends State<HomeScreen> {
         backgroundColor: const Color.fromARGB(255, 237, 238, 240),
         title: Text(widget.title),
       ),
-      body: Column(children: [One(),Two(),Three()]),
-    
+      body:  Column(children: [One(), Two(), Three() ]),
+      
     );
   }
 }
-
-
-
