@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 32, 78, 163)),
       ),
       // home: const HomeScreen(title: 'Home Screen'),
       home:  const SplashScreen(),
@@ -41,6 +41,7 @@ class _HomeScreen extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 237, 238, 240),
         title: Text(widget.title),
+        
         actions: [
              IconButton(
               onPressed: () {
