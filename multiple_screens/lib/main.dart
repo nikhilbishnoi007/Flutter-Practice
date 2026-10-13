@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:multiple_screens/calculator_screen.dart';
+import 'package:multiple_screens/screens/calculator_screen.dart';
+import 'package:multiple_screens/screens/splash_screen.dart';
 import 'package:multiple_screens/widgets/home_widgets.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       // home: const HomeScreen(title: 'Home Screen'),
-      home:  const SwipeScreens(),
+      home:  const SplashScreen(),
     );
   }
 }
@@ -58,6 +59,7 @@ class _HomeScreen extends State<HomeScreen> {
           children: [
             One(),
             Two(),
+            // Three()
         
           ],
         ),
