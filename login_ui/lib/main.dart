@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:login_ui/screens/swipe_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,15 +18,15 @@ class MyApp extends StatelessWidget {
         fontFamily: "MainFont",
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1F0D42)),
       ),
-      home: const LoginScreen(title: 'Welcome! Login to Conitnue'),
+      home: const SwipeScreen(),
     );
   }
 }
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key, required this.title});
+  const LoginScreen({super.key});
 
-  final String title;
+
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
