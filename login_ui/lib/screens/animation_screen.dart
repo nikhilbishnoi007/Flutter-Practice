@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:login_ui/screens/detail_screen.dart";
 
 class AnimationScreen extends StatefulWidget {
   const AnimationScreen({super.key});
@@ -8,7 +9,7 @@ class AnimationScreen extends StatefulWidget {
 
 class _AnimationScreenState extends State<AnimationScreen> {
   bool flag = true;
-  bool flag2=true;
+  bool flag2 = true;
   var _opacity = 0.8;
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class _AnimationScreenState extends State<AnimationScreen> {
           InkWell(
             onTap: () {
               setState(() {
-                flag2=!flag2;
+                flag2 = !flag2;
                 if (flag2) {
                   _opacity = 1.0;
                 } else {
@@ -70,6 +71,24 @@ class _AnimationScreenState extends State<AnimationScreen> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   color: Colors.orange,
+                ),
+              ),
+            ),
+          ),
+          Center(
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DetailScreen()),
+                );
+              },
+              child: Hero(
+                tag: "detail",
+                child: Image.asset(
+                  "assets/images/boy5avatar.jpg",
+                  width: 200,
+                  height: 200,
                 ),
               ),
             ),
