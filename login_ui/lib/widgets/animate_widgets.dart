@@ -138,12 +138,14 @@ class _TweenState extends State<TweenAnimation>
     with SingleTickerProviderStateMixin {
   late Animation animation;
   late AnimationController animationController;
+  late Animation colorAnimation;
 
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(vsync: this,duration: Duration(seconds: 2));
+    animationController = AnimationController(vsync: this,duration: Duration(seconds: 10));
     animation = Tween(begin:0.0,end:200.0).animate(animationController);
+    colorAnimation=ColorTween(begin: Colors.green,end: Colors.blue).animate(animationController);
     animationController.addListener((){
     setState(() {
       
@@ -158,7 +160,7 @@ class _TweenState extends State<TweenAnimation>
       width: animation.value,
       height: animation.value,
       decoration: BoxDecoration(
-        color: Colors.green,
+        color: colorAnimation.value,
         borderRadius: BorderRadius.circular(20)
       ),
     );
