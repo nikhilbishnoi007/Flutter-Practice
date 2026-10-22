@@ -22,11 +22,6 @@ class _AnimationScreenState extends State<AnimationScreen> {
       body: Column(
         children: [
           InkWell(
-            onDoubleTap: () {
-              setState(() {
-                flag = true;
-              });
-            },
             onTap: () {
               setState(() {
                 flag = !flag;
@@ -63,7 +58,8 @@ class _AnimationScreenState extends State<AnimationScreen> {
             },
             child: AnimatedOpacity(
               opacity: _opacity,
-              duration: Duration(seconds: 2),
+              duration: Duration(seconds: 3),
+              // curve: Curves.easeOut,
               child: Container(
                 margin: EdgeInsets.all(12),
                 width: 200,
