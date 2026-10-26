@@ -21,7 +21,7 @@ class _AnimationScreenState extends State<AnimationScreen> {
         child: Center(
           child: Column(
             spacing: 20,
-            children: [AnimateCr(), AnimateOp(), AnimateH(), Clip(),TweenAnimation()]),
+            children: [RippleEffect()]),
         ),
       ),
     );

@@ -143,13 +143,17 @@ class _TweenState extends State<TweenAnimation>
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(vsync: this,duration: Duration(seconds: 10));
-    animation = Tween(begin:0.0,end:200.0).animate(animationController);
-    colorAnimation=ColorTween(begin: Colors.green,end: Colors.blue).animate(animationController);
-    animationController.addListener((){
-    setState(() {
-      
-    });
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 10),
+    );
+    animation = Tween(begin: 0.0, end: 200.0).animate(animationController);
+    colorAnimation = ColorTween(
+      begin: Colors.green,
+      end: Colors.blue,
+    ).animate(animationController);
+    animationController.addListener(() {
+      setState(() {});
     });
     animationController.forward();
   }
@@ -161,8 +165,59 @@ class _TweenState extends State<TweenAnimation>
       height: animation.value,
       decoration: BoxDecoration(
         color: colorAnimation.value,
-        borderRadius: BorderRadius.circular(20)
+        borderRadius: BorderRadius.circular(20),
       ),
+    );
+  }
+}
+
+class RippleEffect extends StatefulWidget {
+  const RippleEffect({super.key});
+  @override
+  State<RippleEffect> createState() => _RippleEffectState();
+}
+
+class _RippleEffectState extends State<RippleEffect>
+    with SingleTickerProviderStateMixin {
+  late Animation animation;
+  late AnimationController animationController;
+  var radiusList=[100.0,150.0,200.0,250.0,300.0];
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 10),
+      lowerBound: 0.5
+    );
+    animation = Tween(begin: 0.0, end: 1.0).animate(animationController);
+    animationController.addListener(() {
+      setState(() {});
+    });
+    animationController.forward();
+  }
+  Widget buildContainer(double radius){
+        return Container(
+          width: radius*animation.value,
+          height: radius*animation.value,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.blue.withValues(alpha: 1.0-animation.value)
+          ),
+        );  
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        buildContainer(radiusList[0]),
+        buildContainer(radiusList[1]),
+        buildContainer(radiusList[2]),
+        buildContainer(radiusList[3]),
+        buildContainer(radiusList[4]),
+        Icon(Icons.phone)
+      ]
     );
   }
 }
