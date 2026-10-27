@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_ui/screens/detail_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AnimateCr extends StatefulWidget {
   const AnimateCr({super.key});
@@ -219,5 +220,58 @@ class _RippleEffectState extends State<RippleEffect>
         Icon(Icons.phone)
       ]
     );
+  }
+}
+
+class SharedPrefrence extends StatefulWidget{
+  const SharedPrefrence({super.key});
+  @override
+   State<SharedPrefrence> createState()=> _SharedPrefrenceState();
+}
+class _SharedPrefrenceState extends State<SharedPrefrence>{
+  var textController=TextEditingController();
+  var userName="";
+
+  Future<void> savedValue() async{
+  var name=textController.text.toString();
+  var pref=await SharedPreferences.getInstance();
+  pref.setString("username", name);
+
+  }
+  Future<void> getValue() async{
+    var prefs=await SharedPreferences.getInstance();
+    var getusername=prefs.getString("username");
+    setState(() {
+      userName=getusername !=null?"Hello $getusername":"Create Username";
+    });
+  }
+  @override
+  void initState(){
+    super.initState();
+    getValue();
+  }
+  @override
+  Widget build(BuildContext context) {
+     return Center(
+      child: Column(
+        children: [
+          TextField(
+            controller: textController,
+            decoration: InputDecoration(
+              label: Text("Create a Username"),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12)
+              )
+            ),
+          ),
+          ElevatedButton(
+            onPressed: savedValue,
+            child: Text("Save")
+          ),
+          SizedBox(height: 10,),
+          Text(userName)
+        ],
+      )
+     );
   }
 }
