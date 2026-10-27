@@ -31,13 +31,38 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
-  void logout() async {
+  Future<void> confirmLogout(BuildContext context) async {
+    final shouldlogout = await showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text("LogOut"),
+        content: const Text("Are you sure you want to logout"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text("LogOut", style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+    if (shouldlogout == true) {
+      if (!context.mounted) return;
+      await logout(context);
+    }
+  }
+
+  Future<void> logout(BuildContext context) async {
     var pref = await SharedPreferences.getInstance();
     await pref.setBool("isLoggedIn", false);
-    if (!mounted) return;
-    Navigator.pushReplacement(
+    if (!context.mounted) return;
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => LoginScreen()),
+      (route) => false,
     );
   }
 
@@ -60,7 +85,7 @@ class _HomeScreen extends State<HomeScreen> {
           spacing: 20,
           children: [
             Icon(Icons.home),
-            ElevatedButton(onPressed: logout, child: Text("LogOut")),
+            ElevatedButton(onPressed: ()=>confirmLogout(context), child: Text("LogOut")),
           ],
         ),
       ),
