@@ -20,8 +20,8 @@ class _SwipeScreenState extends State<SwipeScreen>{
     return  PageView(
       controller: _controller,
       children: [
-        LoginScreen(),
-        AnimationScreen()
+        HomeScreen(),
+        AnimationScreen(),
       ],
     );
   }

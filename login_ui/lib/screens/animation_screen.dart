@@ -20,8 +20,8 @@ class _AnimationScreenState extends State<AnimationScreen> {
         padding: EdgeInsets.all(12),
         child: Center(
           child: Column(
-            // spacing: 20,
-            children: [SharedPrefrence()]),
+            spacing: 20,
+            children: [AnimateCr(),AnimateH(),AnimateOp()]),
         ),
       ),
     );
