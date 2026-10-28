@@ -60,6 +60,16 @@ class _HomeScreen extends State<HomeScreen> {
           },
           icon: Icon(Icons.menu),
         ),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: ((context) {
+              return [
+                PopupMenuItem(child: Text("Item 1")),
+                PopupMenuItem(child: Text("item 2")),
+              ];
+            }),
+          ),
+        ],
       ),
       body: Container(
         width: 400,
@@ -70,7 +80,30 @@ class _HomeScreen extends State<HomeScreen> {
           crossAxisAlignment: .center,
           mainAxisAlignment: .center,
           spacing: 20,
-          children: [Icon(Icons.home)],
+          children: [
+            Icon(Icons.home),
+            ElevatedButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  showDragHandle: true,
+                  context: context,
+                  builder: (builder) {
+                    return ListView(
+                      children: [
+                        ListTile(
+                          leading: CircleAvatar(
+                            child: Icon(Icons.accessibility_new_outlined),
+                          ),
+                          title: Text("Hello"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Text("Show Bottom Sheet"),
+            ),
+          ],
         ),
       ),
       drawer: Drawer(
@@ -89,11 +122,7 @@ class _HomeScreen extends State<HomeScreen> {
             ListTile(leading: Icon(Icons.home), title: Text("Home")),
             ListTile(leading: Icon(Icons.settings), title: Text("Setting")),
             ListTile(leading: Icon(Icons.help), title: Text("Help")),
-            ListTile(
-             
-              leading: Icon(Icons.info),
-              title: Text("About"),
-            ),
+            ListTile(leading: Icon(Icons.info), title: Text("About")),
             ListTile(
               onTap: () => confirmLogout(context),
               leading: Icon(Icons.logout),
