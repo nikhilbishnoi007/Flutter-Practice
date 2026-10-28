@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
       title: 'Student Management',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: "MainFont",
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1F0D42)),
       ),
       home: const SplashScreen(),
