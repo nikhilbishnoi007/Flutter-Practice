@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:login_ui/main.dart";
 import "package:login_ui/screens/animation_screen.dart";
+import "package:login_ui/screens/home_screen.dart";
 
 class SwipeScreen  extends StatefulWidget{
   const SwipeScreen({super.key});
@@ -20,7 +20,7 @@ class _SwipeScreenState extends State<SwipeScreen>{
     return  PageView(
       controller: _controller,
       children: [
-        HomeScreen(),
+       HomeScreen(),
         AnimationScreen(),
       ],
     );

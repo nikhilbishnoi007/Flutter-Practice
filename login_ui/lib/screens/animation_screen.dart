@@ -13,7 +13,7 @@ class _AnimationScreenState extends State<AnimationScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Animation"),
-        backgroundColor: const Color.fromARGB(255, 237, 238, 240),
+        // backgroundColor: const Color.fromARGB(255, 237, 238, 240),
         centerTitle: true,
       ),
       body: SingleChildScrollView(

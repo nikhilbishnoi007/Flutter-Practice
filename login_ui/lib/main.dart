@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login_ui/screens/login_screen.dart';
 import 'package:login_ui/screens/splash_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -24,71 +24,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-  @override
-  State<HomeScreen> createState() => _HomeScreen();
-}
-
-class _HomeScreen extends State<HomeScreen> {
-  Future<void> confirmLogout(BuildContext context) async {
-    final shouldlogout = await showDialog(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: const Text("LogOut"),
-        content: const Text("Are you sure you want to logout"),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext, false),
-            child: const Text("Cancel"),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext, true),
-            child: const Text("LogOut", style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
-    );
-    if (shouldlogout == true) {
-      if (!context.mounted) return;
-      await logout(context);
-    }
-  }
-
-  Future<void> logout(BuildContext context) async {
-    var pref = await SharedPreferences.getInstance();
-    await pref.setBool("isLoggedIn", false);
-    if (!context.mounted) return;
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-      (route) => false,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Screen"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 237, 238, 240),
-      ),
-      body: Container(
-        width: 400,
-        height: 400,
-        margin: EdgeInsets.all(12),
-        padding: EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: .center,
-          mainAxisAlignment: .center,
-          spacing: 20,
-          children: [
-            Icon(Icons.home),
-            ElevatedButton(onPressed: ()=>confirmLogout(context), child: Text("LogOut")),
-          ],
-        ),
-      ),
-    );
-  }
-}
