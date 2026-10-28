@@ -16,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   var email = TextEditingController();
   var password = TextEditingController();
   var date = TextEditingController();
+  final formKey=GlobalKey<FormState>();
   Future<void> pickDate() async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -87,82 +88,111 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               SizedBox(height: 20),
-              Column(
-                mainAxisAlignment: .spaceEvenly,
-                children: [
-                  TextField(
-                    controller: email,
-                    decoration: InputDecoration(
-                      hint: Text(
-                        "Enter Your Email",
-                        style: TextStyle(color: Colors.grey),
+
+              Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: .spaceEvenly,
+                  children: [
+                    TextFormField(
+                      controller: email,
+                      decoration: InputDecoration(
+                        hint: Text(
+                          "Enter Your Email",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        prefixIcon: Icon(Icons.email),
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      prefixIcon: Icon(Icons.email),
+                      validator: (value) {
+                        if(value==null || value.isEmpty){
+                          return "Email is required";
+                        }
+                        if(!value.contains("@")){
+                          return "Enter a Valid Email";
+                        }
+                        return null;
+                      },
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  TextField(
-                    obscureText: isPassword,
-                    controller: password,
-                    decoration: InputDecoration(
-                      hint: Text(
-                        "Enter Your Password",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      prefixIcon: Icon(Icons.key),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isPassword = !isPassword;
-                          });
-                        },
-                        icon: Icon(
-                          isPassword
-                              ? Icons.visibility_off
-                              : Icons.remove_red_eye,
+                    SizedBox(height: 10),
+                    TextFormField(
+                      obscureText: isPassword,
+                      controller: password,
+                      decoration: InputDecoration(
+                        hint: Text(
+                          "Enter Your Password",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        prefixIcon: Icon(Icons.key),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isPassword = !isPassword;
+                            });
+                          },
+                          icon: Icon(
+                            isPassword
+                                ? Icons.visibility_off
+                                : Icons.remove_red_eye,
+                          ),
                         ),
                       ),
+                      validator: (value) {
+                        if(value ==null || value.isEmpty){
+                          return "PassWord Required to login";
+                        }
+                        return null ;
+                      },
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  TextField(
-                    controller: date,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      hint: Text(
-                        "Select Your DOB",
-                        style: TextStyle(color: Colors.grey),
+                    SizedBox(height: 10),
+                    TextFormField(
+                      controller: date,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        hint: Text(
+                          "Select Your DOB",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: pickDate,
+                          icon: Icon(Icons.calendar_month_sharp),
+                        ),
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: pickDate,
-                        icon: Icon(Icons.calendar_month_sharp),
+                      onTap: pickDate,
+                      validator: (value) {
+                        if(value==null || value.isEmpty){
+                          return "DOB is required";
+                        }
+                        return null;
+                      },
+                    ),
+                    Text(
+                      "Forgot Password",
+                      style: TextStyle(decoration: TextDecoration.underline),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      width: 400,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed:(){
+                          if(formKey.currentState!.validate()){
+                          login();
+                          }
+                        },
+                        child: Text("Login"),
                       ),
                     ),
-                    onTap: pickDate,
-                  ),
-                  Text(
-                    "Forgot Password",
-                    style: TextStyle(decoration: TextDecoration.underline),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    width: 400,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: login,
-                      child: Text("Login"),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: .center,
