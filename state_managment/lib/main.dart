@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:state_managment/providers/home_provider.dart';
+import 'package:state_managment/providers/settting_provider.dart';
 import 'package:state_managment/screens/home_screen.dart';
 
 void main() {
@@ -12,12 +13,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'State Managment',
-      home: ChangeNotifierProvider(
-        create: (context) => HomeProvider(),
-        child: HomeScreen(),
+    return ChangeNotifierProvider(
+      create: (context) => SetttingProvider(),
+      child: Consumer<SetttingProvider>(
+        builder: ((context, provider, child) {
+          return MaterialApp(
+            themeMode: provider.mode,
+            darkTheme: ThemeData.dark(),
+            debugShowCheckedModeBanner: false,
+            title: 'State Managment',
+            home: ChangeNotifierProvider(
+              create: (context) => HomeProvider(),
+              child: HomeScreen(),
+            ),
+          );
+        }),
       ),
     );
   }

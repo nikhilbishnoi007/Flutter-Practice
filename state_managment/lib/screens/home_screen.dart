@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 import "package:state_managment/providers/home_provider.dart";
+import "package:state_managment/providers/settting_provider.dart";
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -27,11 +28,38 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: provider.increment,
-                       child: Icon(Icons.add)
-                       ),
-                    ElevatedButton(onPressed: provider.decrement, child: Icon(Icons.remove))   
+                      child: Icon(Icons.add),
+                    ),
+                    ElevatedButton(
+                      onPressed: provider.decrement,
+                      child: Icon(Icons.remove),
+                    ),
                   ],
-                )
+                ),
+                Consumer<SetttingProvider>(
+                  builder: (context,provider,child) {
+                    return DropdownButton(
+                      value: provider.mode,
+                      onChanged: (value) {
+                       provider.switchTheme(value!);
+                      },
+                      items: [
+                        DropdownMenuItem(
+                          value: ThemeMode.system,
+                          child: Text("System"),
+                        ),
+                        DropdownMenuItem(
+                          value: ThemeMode.light,
+                          child: Text("Light"),
+                        ),
+                        DropdownMenuItem(
+                          value: ThemeMode.dark,
+                          child: Text("Dark"),
+                        ),
+                      ],
+                    );
+                  }
+                ),
               ],
             );
           },
