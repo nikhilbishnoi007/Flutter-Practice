@@ -10,24 +10,23 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => SetttingProvider(),
       child: Consumer<SetttingProvider>(
-        builder: ((context, provider, child) {
+        builder: (context, provider, child) {
           return MaterialApp(
             themeMode: provider.mode,
-            darkTheme: ThemeData.dark(),
+            darkTheme:ThemeData.dark(),
+            title: "State Managment",
             debugShowCheckedModeBanner: false,
-            title: 'State Managment',
             home: ChangeNotifierProvider(
               create: (context) => HomeProvider(),
               child: HomeScreen(),
             ),
           );
-        }),
+        },
       ),
     );
   }
