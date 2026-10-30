@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:state_managment/blocs/auth/auth_bloc.dart';
 import 'package:state_managment/providers/notes_provider.dart';
 
 import 'package:state_managment/providers/settting_provider.dart';
-import 'package:state_managment/screens/home_screen.dart';
+import 'package:state_managment/screens/login_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,6 +19,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => SetttingProvider()),
         ChangeNotifierProvider(create: (context) => NotesProvider()),
+        BlocProvider(create: (context) => AuthBloc()),
       ],
       child: Consumer<SetttingProvider>(
         builder: (context, provider, child) {
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
             darkTheme: ThemeData.dark(),
             title: "State Managment",
             debugShowCheckedModeBanner: false,
-            home: HomeScreen(),
+            home: const LoginScreen(),
           );
         },
       ),

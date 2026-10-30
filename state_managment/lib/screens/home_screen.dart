@@ -73,7 +73,7 @@ class HomeScreen extends StatelessWidget {
             itemCount: provider.notes.length,
             itemBuilder: (context, index) {
               final note = provider.notes[index];
-              final formate=DateFormat("dd/mm/yyyy").format(note.createdAt);
+              final formate = DateFormat("dd/mm/yyyy").format(note.createdAt);
               return ListTile(
                 onTap: () {
                   Navigator.push(
