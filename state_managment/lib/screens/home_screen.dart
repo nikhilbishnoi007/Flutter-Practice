@@ -1,13 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:state_managment/providers/notes_provider.dart';
 
 import 'package:state_managment/providers/settting_provider.dart';
 import 'package:state_managment/screens/create_screen.dart';
+import 'package:state_managment/screens/view_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+  Future<bool> confirmDelte(BuildContext context) async {
+    var delete = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Delete"),
+          content: Text("Are you sure you want to Delete this note?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+              child: Text("Yes", style: TextStyle(color: Colors.red)),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+              child: Text("No", style: TextStyle(color: Colors.black)),
+            ),
+          ],
+        );
+      },
+    );
+    return delete;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +63,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Consumer<NotesProvider>(
         builder: (context, provider, child) {
-          if(provider.notes.isEmpty){
+          if (provider.notes.isEmpty) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text("No Notes Yet .Add One"),
@@ -44,48 +73,61 @@ class HomeScreen extends StatelessWidget {
             itemCount: provider.notes.length,
             itemBuilder: (context, index) {
               final note = provider.notes[index];
+              final formate=DateFormat("dd/mm/yyyy").format(note.createdAt);
               return ListTile(
-                leading: CircleAvatar(child: Icon(CupertinoIcons.news)),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ViewScreen(title: note.title, detail: note.desc),
+                    ),
+                  );
+                },
+                leading: CircleAvatar(child: Icon(CupertinoIcons.book)),
                 title: Text(note.title),
-                subtitle: Text(note.desc),
+                subtitle: Text(formate),
                 trailing: PopupMenuButton<String>(
                   icon: Icon(CupertinoIcons.ellipsis_vertical),
                   elevation: 8,
                   offset: Offset(0, 40),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(12)
+                    borderRadius: BorderRadiusGeometry.circular(12),
                   ),
-                  onSelected:(value) {
-                    if(value=="delete"){
-                      provider.delete(note.title);
+                  onSelected: (value) async {
+                    if (value == "delete") {
+                      bool res = await confirmDelte(context);
+                      if (res) {
+                        provider.delete(note.title);
+                      }
                     }
                   },
-                  itemBuilder: (context){
-                  return [
-                    PopupMenuItem(
-                      value: "Edit",
-                      child: Row(
-                        children: [
-                          Icon(CupertinoIcons.pencil,color: Colors.blue,),
-                          SizedBox(width: 15,),
-                          Text("Edit")
-                        ],
-                      )
+                  itemBuilder: (context) {
+                    return [
+                      // PopupMenuItem(
+                      //   value: "Edit",
+                      //   child: Row(
+                      //     children: [
+                      //       Icon(CupertinoIcons.pencil, color: Colors.blue),
+                      //       SizedBox(width: 15),
+                      //       Text("Edit"),
+                      //     ],
+                      //   ),
+                      // ),
+                      // PopupMenuDivider(),
+                      PopupMenuItem(
+                        value: "delete",
+                        child: Row(
+                          children: [
+                            Icon(CupertinoIcons.delete, color: Colors.red),
+                            SizedBox(width: 15),
+                            Text("Delete"),
+                          ],
+                        ),
                       ),
-                    PopupMenuDivider(),
-                     PopupMenuItem(
-                      value: "delete",
-                      child: Row(
-                        children: [
-                           Icon(CupertinoIcons.delete,color: Colors.red,),
-                           SizedBox(width: 15,),
-                           Text("Delete")
-                           
-                        ],
-                      ),
-                     )
-                  ];
-                }),
+                    ];
+                  },
+                ),
               );
             },
           );

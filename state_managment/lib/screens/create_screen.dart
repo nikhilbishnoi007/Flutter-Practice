@@ -14,6 +14,7 @@ class CreateScreen extends StatefulWidget{
 class _CreateScreenState extends State<CreateScreen> {
   var  title=TextEditingController();
   var  desc=TextEditingController();
+
   var form=GlobalKey<FormState>();
   
   @override
@@ -72,7 +73,7 @@ class _CreateScreenState extends State<CreateScreen> {
                 child: ElevatedButton.icon(
                   onPressed: (){
                     if(form.currentState!.validate()){
-                   NotesModel note=NotesModel(title:title.text, desc:desc.text);
+                   NotesModel note=NotesModel(title:title.text, desc:desc.text,createdAt: DateTime.now());
                    provider.addNotes(note);
                    Navigator.pop(context);
                     }

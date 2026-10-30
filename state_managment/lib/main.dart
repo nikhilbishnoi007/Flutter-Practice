@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         builder: (context, provider, child) {
           return MaterialApp(
             themeMode: provider.mode,
+            theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),
             title: "State Managment",
             debugShowCheckedModeBanner: false,
