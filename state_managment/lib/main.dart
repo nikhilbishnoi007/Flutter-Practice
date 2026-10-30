@@ -5,7 +5,8 @@ import 'package:state_managment/blocs/auth/auth_bloc.dart';
 import 'package:state_managment/providers/notes_provider.dart';
 
 import 'package:state_managment/providers/settting_provider.dart';
-import 'package:state_managment/screens/login_screen.dart';
+import 'package:state_managment/screens/splash_screen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
             darkTheme: ThemeData.dark(),
             title: "State Managment",
             debugShowCheckedModeBanner: false,
-            home: const LoginScreen(),
+            home: const SplashScreen(),
           );
         },
       ),

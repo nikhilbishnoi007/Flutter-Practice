@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:state_managment/providers/notes_provider.dart';
 
 import 'package:state_managment/providers/settting_provider.dart';
 import 'package:state_managment/screens/create_screen.dart';
+import 'package:state_managment/screens/login_screen.dart';
 import 'package:state_managment/screens/view_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -37,30 +39,51 @@ class HomeScreen extends StatelessWidget {
     return delete;
   }
 
+  Future<void> confirmLogout(BuildContext context) async {
+    final confirm = await showDialog(
+      context: context,
+      builder: ((context) {
+        return AlertDialog(
+          title: Text("LogOut"),
+          content: Text("Are You sure you want to LogOut"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+              child: Text("Logout",style: TextStyle(color: Colors.red),),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+              child: Text("Cancel",style: TextStyle(color: Colors.black),),
+            ),
+          ],
+        );
+      }),
+    );
+     if(confirm==true){
+        if(!context.mounted)return ;
+        await logOut(context);
+     }
+  }
+  Future<void>logOut(BuildContext context)async{
+       var pref=await SharedPreferences.getInstance();
+       await pref.setBool("isLoggedin", false);
+       if(!context.mounted)return ;
+       Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context)=>LoginScreen()),
+        (route)=>false, 
+        );
+
+  } 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("My Notes"),
-        centerTitle: true,
-        actions: [
-          Consumer<SetttingProvider>(
-            builder: (context, provider, child) {
-              final isLight = provider.mode == ThemeMode.light;
-              return IconButton(
-                onPressed: () {
-                  provider.switchMode(
-                    isLight ? ThemeMode.dark : ThemeMode.light,
-                  );
-                },
-                icon: Icon(
-                  isLight ? CupertinoIcons.sun_max : CupertinoIcons.moon,
-                ),
-              );
-            },
-          ),
-        ],
-      ),
+      appBar: AppBar(title: Text("My Notes"), centerTitle: true),
       body: Consumer<NotesProvider>(
         builder: (context, provider, child) {
           if (provider.notes.isEmpty) {
@@ -132,6 +155,44 @@ class HomeScreen extends StatelessWidget {
             },
           );
         },
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          children: [
+            SizedBox(height: 50),
+            FlutterLogo(size: 100),
+            SizedBox(height: 20),
+            Consumer<SetttingProvider>(
+              builder: (context, provider, child) {
+                final isLight = provider.mode == ThemeMode.light;
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    onTap: () {
+                      provider.switchMode(
+                        isLight ? ThemeMode.dark : ThemeMode.light,
+                      );
+                    },
+                    leading: Icon(
+                      isLight ? CupertinoIcons.sun_max : CupertinoIcons.moon,
+                    ),
+                    title: Text(isLight ? "Light" : "Dark"),
+                  ),
+                );
+              },
+            ),
+            Padding(
+              padding: EdgeInsets.all(8),
+              child: ListTile(
+                onTap: () {
+                  confirmLogout(context);
+                },
+                leading: Icon(CupertinoIcons.square_arrow_right),
+                title: Text("LogOut", style: TextStyle(color: Colors.red)),
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 20),
