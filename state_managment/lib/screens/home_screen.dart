@@ -9,9 +9,17 @@ import 'package:state_managment/providers/settting_provider.dart';
 import 'package:state_managment/screens/create_screen.dart';
 import 'package:state_managment/screens/login_screen.dart';
 import 'package:state_managment/screens/view_screen.dart';
+import 'package:state_managment/widgets/home_widgets.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController controller=TextEditingController();
   Future<bool> confirmDelte(BuildContext context) async {
     var delete = await showDialog(
       context: context,
@@ -68,6 +76,7 @@ class HomeScreen extends StatelessWidget {
         await logOut(context);
      }
   }
+
   Future<void>logOut(BuildContext context)async{
        var pref=await SharedPreferences.getInstance();
        await pref.setBool("isLoggedin", false);
@@ -83,20 +92,26 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("My Notes"), centerTitle: true),
+      appBar: AppBar(
+        title: SearchTitle(),
+         centerTitle: true,
+         actions: [
+          SearchAction()
+         ],
+      ),
       body: Consumer<NotesProvider>(
         builder: (context, provider, child) {
-          if (provider.notes.isEmpty) {
+          if (provider.filterdNotes().isEmpty) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text("No Notes Yet .Add One"),
             );
           }
           return ListView.builder(
-            itemCount: provider.notes.length,
+            itemCount: provider.filterdNotes().length,
             itemBuilder: (context, index) {
-              final note = provider.notes[index];
-              final formate = DateFormat("dd/mm/yyyy").format(note.createdAt);
+              final note = provider.filterdNotes()[index];
+              final formate = DateFormat("dd/MM/yyyy").format(note.createdAt);
               return ListTile(
                 onTap: () {
                   Navigator.push(
@@ -121,7 +136,7 @@ class HomeScreen extends StatelessWidget {
                     if (value == "delete") {
                       bool res = await confirmDelte(context);
                       if (res) {
-                        provider.delete(note.title);
+                        provider.delete(note.id);
                       }
                     }
                   },
@@ -156,7 +171,7 @@ class HomeScreen extends StatelessWidget {
           );
         },
       ),
-      endDrawer: Drawer(
+      drawer: Drawer(
         child: ListView(
           children: [
             SizedBox(height: 50),
