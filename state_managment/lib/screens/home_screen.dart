@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (provider.filterdNotes().isEmpty) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("No Notes Yet .Add One"),
+              child: Text(provider.searching?"No Notes Found":"No Notes Yet. Add One"),
             );
           }
           return ListView.builder(
@@ -133,7 +133,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadiusGeometry.circular(12),
                   ),
                   onSelected: (value) async {
-                    if (value == "delete") {
+                    if(value=="Edit"){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context)=>CreateScreen(note: note))
+                        );
+                    }
+                    else if (value == "delete") {
                       bool res = await confirmDelte(context);
                       if (res) {
                         provider.delete(note.id);
@@ -142,16 +148,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   itemBuilder: (context) {
                     return [
-                      // PopupMenuItem(
-                      //   value: "Edit",
-                      //   child: Row(
-                      //     children: [
-                      //       Icon(CupertinoIcons.pencil, color: Colors.blue),
-                      //       SizedBox(width: 15),
-                      //       Text("Edit"),
-                      //     ],
-                      //   ),
-                      // ),
+                      PopupMenuItem(
+                        value: "Edit",
+                        child: Row(
+                          children: [
+                            Icon(CupertinoIcons.pencil, color: Colors.blue),
+                            SizedBox(width: 15),
+                            Text("Edit"),
+                          ],
+                        ),
+                      ),
                       // PopupMenuDivider(),
                       PopupMenuItem(
                         value: "delete",
