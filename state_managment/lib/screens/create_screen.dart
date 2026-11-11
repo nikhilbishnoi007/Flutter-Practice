@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:state_managment/models/notes_model.dart';
 import 'package:state_managment/providers/notes_provider.dart';
+import 'package:uuid/uuid.dart';
 
 class CreateScreen extends StatefulWidget{
   const CreateScreen({super.key});
@@ -19,6 +20,7 @@ class _CreateScreenState extends State<CreateScreen> {
   
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: Text("Create Notes"),
@@ -73,7 +75,7 @@ class _CreateScreenState extends State<CreateScreen> {
                 child: ElevatedButton.icon(
                   onPressed: (){
                     if(form.currentState!.validate()){
-                   NotesModel note=NotesModel(title:title.text, desc:desc.text,createdAt: DateTime.now());
+                   NotesModel note=NotesModel(id:Uuid().v4(),title:title.text, desc:desc.text,createdAt: DateTime.now());
                    provider.addNotes(note);
                    Navigator.pop(context);
                     }
