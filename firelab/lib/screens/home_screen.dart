@@ -12,16 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final dbRefrence = FirebaseFirestore.instance.collection("users");
-  //
 
-  // Future<void> fetchdata() async {
-  //   dbRefrence.snapshots().listen((data) {
-  //     users.clear();
-  //     setState(() {
-  //       users = data.docs.map((d) => d.data()).toList();
-  //     });
-  //   });
-  // }
 
   Future<bool> confirmDelete(BuildContext context) async {
     final response = await showDialog<bool>(
