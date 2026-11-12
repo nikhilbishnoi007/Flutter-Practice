@@ -55,7 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
           if (snapshot.data != null) {
             List<Map<String, dynamic>> users = [];
             users = snapshot.data!.docs.map((d) => d.data()).toList();
-            return ListView.builder(
+            return users.isEmpty?Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text("No User Added Yet",style: TextStyle(color: Colors.grey,fontSize: 16),),
+            )
+            :ListView.builder(
               itemCount: users.length,
               itemBuilder: (context, index) {
                 final user = users[index];
