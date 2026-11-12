@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "566343288902",
+    "project_id": "fir-intro-738c1",
+    "storage_bucket": "fir-intro-738c1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566343288902:android:a9879c95a3a53a90962247",
+        "android_client_info": {
+          "package_name": "com.example.firelab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkY0jDpBQFC9b_Z8oOQ_CljJDYkJwu3rY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566343288902:android:301e89657253cf61962247",
+        "android_client_info": {
+          "package_name": "com.example.state_managment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkY0jDpBQFC9b_Z8oOQ_CljJDYkJwu3rY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
