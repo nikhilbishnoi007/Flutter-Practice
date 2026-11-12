@@ -34,7 +34,7 @@ class _CreateScreenState extends State<CreateScreen> {
     super.dispose();
   }
 
-  void save() {
+  void save() async{
     final provider = context.read<NotesProvider>();
     if(isEdit){
       provider.edit(widget.note!.id, title.text.trim(), desc.text.trim());
@@ -46,6 +46,7 @@ class _CreateScreenState extends State<CreateScreen> {
       createdAt: DateTime.now(),
     );
     provider.addNotes(note);
+
     }
     Navigator.pop(context);
   }
