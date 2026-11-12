@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class AddUserScreen extends StatefulWidget {
-  const AddUserScreen({super.key});
+ final  Map<String ,dynamic>?data;
+  const AddUserScreen({super.key,this.data});
   @override
   State<AddUserScreen> createState() => _AddUserScreenState();
 }
@@ -13,6 +14,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
   final email = TextEditingController();
   final formkey = GlobalKey<FormState>();
   final dbRefrence=FirebaseFirestore.instance.collection("users");
+  bool get isEdit=>widget.data!=null;
 
   Future<void> save(BuildContext context)async{
     final id=Uuid().v4();
@@ -24,10 +26,30 @@ class _AddUserScreenState extends State<AddUserScreen> {
      if (!context.mounted) return;
     Navigator.pop(context);
   }
+  Future<void>update(BuildContext context)async{
+    await dbRefrence.doc(widget.data?['uid']).update({
+      "name":name.text,
+      "email":email.text
+    });
+    if(!context.mounted)return;
+    Navigator.pop(context);
+  }
+  @override
+  void initState(){
+    name.text=widget.data?['name']??"";
+    email.text=widget.data?['email']??"";
+    super.initState();
+  }
+  @override
+  void dispose(){
+    name.dispose();
+    email.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Add Users"), centerTitle: true),
+      appBar: AppBar(title: Text(isEdit?"Update User":"Add Users"), centerTitle: true),
       body: Form(
         key: formkey,
         child: ListView(
@@ -81,10 +103,10 @@ class _AddUserScreenState extends State<AddUserScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (formkey.currentState!.validate()) {
-                      save(context);
+                      isEdit?update(context): save(context);
                     }
                   },
-                  child: Text("Add"),
+                  child: Text(isEdit?"Update":"Add"),
                 ),
               ),
             ),
