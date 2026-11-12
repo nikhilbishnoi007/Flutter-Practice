@@ -28,9 +28,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         password: pass.text,
       );
       if (!context.mounted) return;
-      Navigator.pushReplacement(
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => HomeScreen()),
+        (value)=>false
       );
     } catch (e) {
       if (!context.mounted) return;

@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firelab/screens/home_screen.dart';
+import 'package:firelab/screens/register_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,8 +14,35 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final email = TextEditingController();
   final pass = TextEditingController();
-  final _fomrKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   bool hidepass = true;
+  bool isLoading = false;
+  final auth = FirebaseAuth.instance;
+  Future<void> login(BuildContext context) async {
+     final pref= await SharedPreferences.getInstance();
+    setState(() =>isLoading = true);
+    try {
+      await auth.signInWithEmailAndPassword(
+        email: email.text,
+        password: pass.text,
+      );
+      await pref.setBool("login", true);
+      if (!context.mounted) return;
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+        (value)=>false
+      );
+    } catch (e) {
+      await pref.setBool("login", false);
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    } finally {
+      if (mounted) setState(() => isLoading = false);
+    }
+  }
+
   @override
   void dispose() {
     email.dispose();
@@ -24,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(title: Text("Login"), centerTitle: true),
       body: Form(
-        key: _fomrKey,
+        key: _formKey,
         child: ListView(
           children: [
             Padding(
@@ -70,14 +101,35 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(16),
-              child: ElevatedButton(onPressed: () {}, child: Text("Login")),
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    login(context);
+                  }
+                },
+                child: isLoading
+                    ? SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(),
+                      )
+                    : Text("Login"),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
 
               children: [
                 Text("don't have Account?"),
-                TextButton(onPressed: () {}, child: Text("Register")),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterScreen()),
+                    );
+                  },
+                  child: Text("Register"),
+                ),
               ],
             ),
           ],
