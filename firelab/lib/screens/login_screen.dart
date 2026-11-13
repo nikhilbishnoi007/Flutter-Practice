@@ -4,6 +4,8 @@ import 'package:firelab/screens/home_screen.dart';
 import 'package:firelab/screens/register_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -38,6 +40,31 @@ class _LoginScreenState extends State<LoginScreen> {
           .showSnackBar(SnackBar(content: Text(e.toString())));
     } finally {
       if (mounted) setState(() => isLoading = false);
+    }
+  }
+  Future<void>continuewithGoogle(BuildContext context)async{
+    String clientId=String.fromEnvironment("GOOGLE_CLIENT_ID");
+    try{
+        GoogleSignIn signIn=GoogleSignIn.instance;
+        await signIn.initialize(serverClientId: clientId);
+        GoogleSignInAccount result=await signIn.authenticate();
+        GoogleSignInAuthentication googleauth=result.authentication;
+        final credential=GoogleAuthProvider.credential(
+          idToken: googleauth.idToken
+        );
+        setState(()=>isLoading=true);
+        await auth.signInWithCredential(credential);
+        if(!context.mounted)return;
+        Navigator.pushAndRemoveUntil(
+          context, 
+          MaterialPageRoute(builder: (context)=>HomeScreen()), 
+          (value)=>false
+          );
+    }catch(e){
+      if(!context.mounted)return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }finally{
+      if(mounted)setState(()=>isLoading=false);
     }
   }
 
@@ -141,6 +168,35 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text("Register"),
                 ),
               ],
+            ),
+            Row(
+              mainAxisAlignment: .center,
+              children: [
+                Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Text(
+                    "OR",
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                const Expanded(
+                  child: Divider(color: Colors.grey, thickness: 1),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  continuewithGoogle(context);
+                },
+                icon: FaIcon(FontAwesomeIcons.google),
+                label: Text("Continue With Google"),
+              ),
             ),
           ],
         ),
