@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firelab/screens/add_screen.dart';
+import 'package:firelab/screens/image_screen.dart';
 import 'package:firelab/screens/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 Navigator.pop(context, true);
               },
-              child: Text("LogOut",style: TextStyle(color: Colors.redAccent),),
+              child: Text("LogOut", style: TextStyle(color: Colors.redAccent)),
             ),
             TextButton(
               onPressed: () {
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => LoginScreen()),
-        (value)=>false
+        (value) => false,
       );
     } catch (e) {
       if (!context.mounted) return;
@@ -91,25 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home"),
-        centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: () async {
-                final res = await confirmLogout(context);
-                if (res) {
-                  if (!context.mounted) return;
-                  logout(context);
-                }
-              },
-              child: Text("LogOut", style: TextStyle(color: Colors.red)),
-            ),
-          ),
-        ],
-      ),
+      drawerEdgeDragWidth: 120,
+      appBar: AppBar(title: Text("Home"), centerTitle: true),
       body: StreamBuilder(
         stream: dbRefrence.snapshots(),
         builder: (context, snapshot) {
@@ -204,6 +188,45 @@ class _HomeScreenState extends State<HomeScreen> {
           }
           return Text("No User found");
         },
+      ),
+      drawer: Drawer(
+        width: 250,
+        child: Column(
+          children: [
+            SizedBox(height: 100),
+            FlutterLogo(size: 100),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                onTap: () async {
+                  final res = await confirmLogout(context);
+                  if (res) {
+                    if (!context.mounted) return;
+                    logout(context);
+                  }
+                },
+                leading: Icon(CupertinoIcons.square_arrow_right),
+                title: Text("LogOut", style: TextStyle(color: Colors.red)),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ImageScreen()),
+                  );
+                },
+                leading: Icon(Icons.open_in_new),
+                title: Text(
+                  "ImagePicker",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(8.0),
