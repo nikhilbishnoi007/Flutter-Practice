@@ -4,6 +4,7 @@ import 'package:firelab/screens/home_screen.dart';
 import 'package:firelab/screens/register_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -43,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
   Future<void>continuewithGoogle(BuildContext context)async{
-    String clientId=String.fromEnvironment("GOOGLE_CLIENT_ID");
+    String clientId=dotenv.env['GOOGLE_CLIENT_ID']??"";
     try{
         GoogleSignIn signIn=GoogleSignIn.instance;
         await signIn.initialize(serverClientId: clientId);
