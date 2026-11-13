@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firelab/screens/add_screen.dart';
+import 'package:firelab/screens/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final dbRefrence = FirebaseFirestore.instance.collection("users");
-
+  final auth = FirebaseAuth.instance;
 
   Future<bool> confirmDelete(BuildContext context) async {
     final response = await showDialog<bool>(
@@ -42,10 +44,72 @@ class _HomeScreenState extends State<HomeScreen> {
     return response ?? false;
   }
 
+  Future<bool> confirmLogout(BuildContext context) async {
+    final res = await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("LogOut"),
+          content: Text("Are you sure you want to logout"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+              child: Text("LogOut"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+              child: Text("No"),
+            ),
+          ],
+        );
+      },
+    );
+    return res ?? false;
+  }
+
+  Future<void> logout(BuildContext context) async {
+    try {
+      await auth.signOut();
+      if (!context.mounted) return;
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+        (value)=>false
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Home"), centerTitle: true),
+      appBar: AppBar(
+        title: Text("Home"),
+        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () async {
+                final res = await confirmLogout(context);
+                if (res) {
+                  if (!context.mounted) return;
+                  logout(context);
+                }
+              },
+              child: Text("LogOut", style: TextStyle(color: Colors.red)),
+            ),
+          ),
+        ],
+      ),
       body: StreamBuilder(
         stream: dbRefrence.snapshots(),
         builder: (context, snapshot) {
