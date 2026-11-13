@@ -3,6 +3,9 @@ import 'package:firelab/screens/home_screen.dart';
 import 'package:firelab/screens/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -18,7 +21,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool hidepass = true;
   final auth = FirebaseAuth.instance;
   bool isLoading = false;
-  
+
   Future<void> register(BuildContext context) async {
     setState(() {
       isLoading = true;
@@ -32,7 +35,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => HomeScreen()),
-        (value)=>false
+        (value) => false,
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    } finally {
+      if (mounted) setState(() => isLoading = false);
+    }
+  }
+
+  Future<void> continuewithGoogle(BuildContext context) async {
+    String clientId = dotenv.env['GOOGLE_CLIENT_ID'] ?? "";
+    try {
+      GoogleSignIn signIn = GoogleSignIn.instance;
+      await signIn.initialize(serverClientId: clientId);
+      GoogleSignInAccount result = await signIn.authenticate();
+      GoogleSignInAuthentication googleAuth = result.authentication;
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+      setState(() => isLoading = true);
+      await auth.signInWithCredential(credential);
+      if (!context.mounted) return;
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+        (value) => false,
       );
     } catch (e) {
       if (!context.mounted) return;
@@ -146,6 +176,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Text("Login"),
                 ),
               ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Text(
+                    "Or",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  continuewithGoogle(context);
+                },
+                label: Text("Continue With Google"),
+                icon: FaIcon(FontAwesomeIcons.google),
+              ),
             ),
           ],
         ),

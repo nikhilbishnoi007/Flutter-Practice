@@ -4,7 +4,7 @@ import 'package:firelab/main.dart';
 
 void main() {
    testWidgets('App builds', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp(isLoggedIn: false));
+    await tester.pumpWidget(const MyApp());
     expect(find.text('Login'), findsWidgets);
   });
 
