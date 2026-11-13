@@ -55,72 +55,88 @@ class _HomeScreenState extends State<HomeScreen> {
           if (snapshot.data != null) {
             List<Map<String, dynamic>> users = [];
             users = snapshot.data!.docs.map((d) => d.data()).toList();
-            return users.isEmpty?Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Text("No User Added Yet",style: TextStyle(color: Colors.grey,fontSize: 16),),
-            )
-            :ListView.builder(
-              itemCount: users.length,
-              itemBuilder: (context, index) {
-                final user = users[index];
-                return ListTile(
-                  leading: CircleAvatar(child: Icon(CupertinoIcons.person)),
-                  title: Text(user['name']),
-                  subtitle: Text(user['email'], style: TextStyle(fontSize: 12)),
-                  trailing: PopupMenuButton(
-                    icon: Icon(CupertinoIcons.ellipsis_vertical),
-                    elevation: 8,
-                    offset: Offset(0, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(12),
+            return users.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(
+                      "No User Added Yet",
+                      style: TextStyle(color: Colors.grey, fontSize: 16),
                     ),
-                    onSelected: (value) async {
-                      if (value == "Edit") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AddUserScreen(data: user),
+                  )
+                : ListView.builder(
+                    itemCount: users.length,
+                    itemBuilder: (context, index) {
+                      final user = users[index];
+                      return ListTile(
+                        leading: CircleAvatar(
+                          child: Icon(CupertinoIcons.person),
+                        ),
+                        title: Text(user['name']),
+                        subtitle: Text(
+                          user['email'],
+                          style: TextStyle(fontSize: 12),
+                        ),
+                        trailing: PopupMenuButton(
+                          icon: Icon(CupertinoIcons.ellipsis_vertical),
+                          elevation: 8,
+                          offset: Offset(0, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(12),
                           ),
-                        );
-                      } else if (value == "Delete") {
-                        final res = await confirmDelete(context);
-                        if (!res) return;
+                          onSelected: (value) async {
+                            if (value == "Edit") {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddUserScreen(data: user),
+                                ),
+                              );
+                            } else if (value == "Delete") {
+                              final res = await confirmDelete(context);
+                              if (!res) return;
 
-                        await dbRefrence.doc(user['uid']).delete();
-                        if (!context.mounted) return;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('User deleted')),
-                        );
-                      }
-                    },
-                    itemBuilder: (context) {
-                      return [
-                        PopupMenuItem(
-                          value: "Edit",
-                          child: Row(
-                            children: [
-                              Icon(CupertinoIcons.pencil, color: Colors.blue),
-                              SizedBox(width: 15),
-                              Text("Edit"),
-                            ],
-                          ),
+                              await dbRefrence.doc(user['uid']).delete();
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('User deleted')),
+                              );
+                            }
+                          },
+                          itemBuilder: (context) {
+                            return [
+                              PopupMenuItem(
+                                value: "Edit",
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      CupertinoIcons.pencil,
+                                      color: Colors.blue,
+                                    ),
+                                    SizedBox(width: 15),
+                                    Text("Edit"),
+                                  ],
+                                ),
+                              ),
+                              PopupMenuItem(
+                                value: "Delete",
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      CupertinoIcons.delete,
+                                      color: Colors.red,
+                                    ),
+                                    SizedBox(width: 15),
+                                    Text("Delete"),
+                                  ],
+                                ),
+                              ),
+                            ];
+                          },
                         ),
-                        PopupMenuItem(
-                          value: "Delete",
-                          child: Row(
-                            children: [
-                              Icon(CupertinoIcons.delete, color: Colors.red),
-                              SizedBox(width: 15),
-                              Text("Delete"),
-                            ],
-                          ),
-                        ),
-                      ];
+                      );
                     },
-                  ),
-                );
-              },
-            );
+                  );
           }
           return Text("No User found");
         },

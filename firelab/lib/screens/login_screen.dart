@@ -3,7 +3,6 @@ import 'package:firelab/screens/home_screen.dart';
 import 'package:firelab/screens/register_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,14 +18,14 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoading = false;
   final auth = FirebaseAuth.instance;
   Future<void> login(BuildContext context) async {
-     final pref= await SharedPreferences.getInstance();
+
     setState(() =>isLoading = true);
     try {
       await auth.signInWithEmailAndPassword(
         email: email.text,
         password: pass.text,
       );
-      await pref.setBool("login", true);
+
       if (!context.mounted) return;
       Navigator.pushAndRemoveUntil(
         context,
@@ -34,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
         (value)=>false
       );
     } catch (e) {
-      await pref.setBool("login", false);
+
       if (!context.mounted) return;
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));

@@ -18,6 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool hidepass = true;
   final auth = FirebaseAuth.instance;
   bool isLoading = false;
+  
   Future<void> register(BuildContext context) async {
     setState(() {
       isLoading = true;
