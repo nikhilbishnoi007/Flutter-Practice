@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firelab/screens/forgot_passsword.dart';
 import 'package:firelab/screens/home_screen.dart';
 import 'package:firelab/screens/register_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,8 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoading = false;
   final auth = FirebaseAuth.instance;
   Future<void> login(BuildContext context) async {
-
-    setState(() =>isLoading = true);
+    setState(() => isLoading = true);
     try {
       await auth.signInWithEmailAndPassword(
         email: email.text,
@@ -30,10 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => HomeScreen()),
-        (value)=>false
+        (value) => false,
       );
     } catch (e) {
-
       if (!context.mounted) return;
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
@@ -98,8 +97,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
             ),
+            Align(
+              alignment: AlignmentGeometry.centerRight,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ForgotScreen()),
+                  );
+                },
+                child: Text("forgot password"),
+              ),
+            ),
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(12),
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
