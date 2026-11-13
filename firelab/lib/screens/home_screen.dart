@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 Navigator.pop(context, true);
               },
-              child: Text("LogOut"),
+              child: Text("LogOut",style: TextStyle(color: Colors.redAccent),),
             ),
             TextButton(
               onPressed: () {
